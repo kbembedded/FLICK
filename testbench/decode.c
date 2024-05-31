@@ -6,7 +6,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 
-#include "flipper.pb.h"
+#include "flick.pb.h"
 
 #include "pb_decode.h"
 #include "pb_encode.h"

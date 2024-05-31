@@ -7,7 +7,7 @@ CFLAGS += "-I$(NANOPB_DIR)"
 
 # C source code files that are required
 CSRC  = decode.c                   # The main program
-CSRC += *.pb.c                # The compiled protocol definition
+CSRC += flick.pb.c                # The compiled protocol definition
 CSRC += $(NANOPB_DIR)/pb_encode.c  # The nanopb encoder
 CSRC += $(NANOPB_DIR)/pb_decode.c  # The nanopb decoder
 CSRC += $(NANOPB_DIR)/pb_common.c  # The nanopb common parts
@@ -17,7 +17,7 @@ decode: $(CSRC)
 	$(CC) $(CFLAGS) -odecode $(CSRC)
 
 # Build rule for the protocol
-#flipper.pb.c: flipper.proto
-#	$(PROTOC) $(PROTOC_OPTS) --nanopb_out=. fliiper.proto
+flipper.pb.c: flick.proto
+	$(PROTOC) $(PROTOC_OPTS) --nanopb_out=. flick.proto
 
 

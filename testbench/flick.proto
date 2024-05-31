@@ -1,4 +1,7 @@
 syntax = "proto3";
+
+package PB;
+
 message Region {
 	message Band {
 		uint32 start = 1;
