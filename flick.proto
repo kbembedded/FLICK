@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package PB;
+
+message Region {
+	message Band {
+		uint32 start = 1;
+		uint32 end = 2;
+		int32 power_limit = 3;
+		uint32 duty_cycle = 4;
+	}
+
+	bytes country_code = 1;
+	repeated Band bands = 2;
+}
