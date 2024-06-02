@@ -26,12 +26,10 @@ typedef struct {
 } FuriHalRegion;
 
 FuriHalRegion region = {
-	"US",
-	3,
-	{
-		{ 304100000, 321950000, 12, 50 },
-		{ 433050000, 434790000, 12, 50 },
-		{ 915000000, 928000000, 12, 50 },
+	.country_code = "LOL",
+	.bands_count = 1,
+	.bands = {
+		{ 0, 1000000000, 53, 50 },
 		{},
 	},
 };
@@ -74,9 +72,9 @@ int main(void)
 	pb_ostream_t ostream;
 	int i;
 
-	pb_region.country_code = malloc(3); // XXX: Hardcoded at the moment
-	pb_region.country_code->size = 2;
-	memcpy(pb_region.country_code->bytes, region.country_code, 3);
+	pb_region.country_code = malloc(4); // XXX: Hardcoded at the moment
+	pb_region.country_code->size = 3;
+	memcpy(pb_region.country_code->bytes, region.country_code, 4);
 
 	pb_region.bands.funcs.encode = subghz_on_system_start_istream_encode_band;
 	pb_region.bands.arg = &region;
