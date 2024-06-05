@@ -40,3 +40,9 @@ jobs:
           # See ufbt action docs for other output variables
           name: ${{ github.event.repository.name }}-${{ steps.build-app.outputs.suffix }}
           path: ${{ steps.build-app.outputs.fap-artifacts }}
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            ${{ steps.build-app-gb-pokemon-trading.outputs.fap-artifacts }}
