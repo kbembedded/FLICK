@@ -6,11 +6,10 @@ App(
     stack_size=2 * 1024,
     fap_category="Sub-Ghz",
     # Optional values
-    fap_version="0.1",
+    fap_version="1.0",
     fap_icon="flick.png",  # 10x10 1-bit PNG
     fap_description="Frequency Liberation and Interchangeable Country Kit",
     fap_author="KBEmbedded",
-    # fap_weburl="https://github.com/user/template",
     fap_extbuild=(
         ExtFile(
             path=[ "${FAP_WORK_DIR}/flick.pb.c", "${FAP_WORK_DIR}/flick.pb.h" ],
