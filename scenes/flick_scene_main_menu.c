@@ -1,6 +1,8 @@
 #include "flick_scene.h"
 #include "../flick_data.h"
 
+#include "flick_scene_check_flicked.h"
+
 static void callback(void* context, uint32_t index)
 {
 	struct flick_app *flick = context;
@@ -25,15 +27,16 @@ void flick_scene_main_menu_on_enter(void *context)
 	submenu_reset(flick->submenu);
 	submenu_add_item(flick->submenu,
 			 "FLICK",
-			 FlickSceneEULA,
+			 FlickSceneCheckFlicked,
 			 callback,
 			 flick);
-	/* TODO: A check here to see if previous region data exists */
-	submenu_add_item(flick->submenu,
-			 "un-FLICK",
-			 0,
-			 callback,
-			 flick);
+	if (flick_scene_check_flicked(flick)) {
+		submenu_add_item(flick->submenu,
+				 "un-FLICK",
+				 FlickSceneUnFlick,
+				 callback,
+				 flick);
+	}
 
 	view_dispatcher_set_navigation_event_callback(flick->view_dispatcher,
 						      flick_main_menu_back_event);

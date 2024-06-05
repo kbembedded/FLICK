@@ -11,15 +11,6 @@ App(
     fap_description="Frequency Liberation and Interchangeable Country Kit",
     fap_author="KBEmbedded",
     # fap_weburl="https://github.com/user/template",
-    #fap_private_libs=[
-    #    Lib(
-    #        name="nanopb",
-    #        sources=[
-    #            "pb_encode.h",
-    #            "pb_common.h",
-    #        ],
-    #    ),
-    #],
     fap_extbuild=(
         ExtFile(
             path=[ "${FAP_WORK_DIR}/flick.pb.c", "${FAP_WORK_DIR}/flick.pb.h" ],

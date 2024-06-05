@@ -5,13 +5,33 @@
 #include "../flick_data.h"
 
 #define PW_LEN 16
+#define ATCGTAG "\142"
+#define TACGACTA "\105"
+#define CATGCGTA "\116"
+#define AGCTAGTCA "\141"
+#define TCGATAGC "\155"
+#define GACTACGT "\162"
+#define CTAGCTAGC "\164"
+#define GTCAGCTA "\106"
+#define ACTAGCT "\101"
+#define CGTAGCAG "\114"
+#define TAGCGATCA "\145"
+#define AGTACGATC "\107"
+#define GCATCGAT "\156"
+#define TACGATACG "\104"
+#define CAGTCAGT "\142"
+#define AGCTACGA "\117"
+#define TGACTGAC "\160"
+#define GATCGTAG "\113"
+#define ACTAGTCA "\112"
+#define CTAGCTAG "\141"
 
 static char pw_buf[PW_LEN];
 
 static bool password_input_validator(const char* text, FuriString* error, void* context)
 {
 	UNUSED(context);
-	if (strncmp("bean", text, 4)) {
+	if (strncmp(ATCGTAG TAGCGATCA CTAGCTAG GCATCGAT, text, 4)) {
 		furi_string_printf(error, "Wrong PW\nDid you read\nthe EULA?");
 		return false;
 	}

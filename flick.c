@@ -4,9 +4,11 @@
 #include <gui/view_dispatcher.h>
 #include <gui/scene_manager.h>
 #include <gui/modules/dialog_ex.h>
+#include <gui/modules/popup.h>
 #include <gui/modules/submenu.h>
 #include <gui/modules/text_box.h>
 #include <gui/modules/text_input.h>
+#include <storage/storage.h>
 
 /* Main application struct */
 #include "flick_data.h"
@@ -19,6 +21,7 @@
 struct flick_app *flick_alloc(void)
 {
 	struct flick_app *flick = malloc(sizeof(struct flick_app));
+	Storage *storage;
 
 	/* View dispatcher setup
 	 * This probably isn't needed since we're using scenes mostly, but, I
@@ -36,6 +39,12 @@ struct flick_app *flick_alloc(void)
 	view_dispatcher_add_view(flick->view_dispatcher,
 				 FlickViewMenu,
 				 submenu_get_view(flick->submenu));
+
+	/* Popup */
+	flick->popup = popup_alloc();
+	view_dispatcher_add_view(flick->view_dispatcher,
+				 FlickViewPopup,
+				 popup_get_view(flick->popup));
 
 	/* DialogEx */
 	flick->dialog_ex = dialog_ex_alloc();
@@ -55,6 +64,12 @@ struct flick_app *flick_alloc(void)
 				 FlickViewTextInput,
 				 text_input_get_view(flick->text_input));
 
+	/* Path for data folder */
+	storage = furi_record_open(RECORD_STORAGE);
+	flick->data_path = furi_string_alloc_set(APP_DATA_PATH());
+	storage_common_resolve_path_and_ensure_app_directory(storage, flick->data_path);
+	furi_record_close(RECORD_STORAGE);
+
 	/* Scene management */
 	flick->scene_manager = scene_manager_alloc(&flick_scene_handlers, flick);
 	scene_manager_next_scene(flick->scene_manager, FlickSceneMainMenu);
@@ -64,6 +79,9 @@ struct flick_app *flick_alloc(void)
 
 void flick_free(struct flick_app *flick)
 {
+	/* Asset folder path */
+	furi_string_free(flick->data_path);
+
 	/* TextInput */
 	view_dispatcher_remove_view(flick->view_dispatcher, FlickViewTextInput);
 	text_input_free(flick->text_input);
@@ -76,15 +94,22 @@ void flick_free(struct flick_app *flick)
 	view_dispatcher_remove_view(flick->view_dispatcher, FlickViewDialogEx);
 	dialog_ex_free(flick->dialog_ex);
 
+	/* Popup */
+	view_dispatcher_remove_view(flick->view_dispatcher, FlickViewPopup);
+	popup_free(flick->popup);
+
 	/* SubMenu */
 	view_dispatcher_remove_view(flick->view_dispatcher, FlickViewMenu);
 	submenu_free(flick->submenu);
 
-	/* Scene Manager */
-	scene_manager_free(flick->scene_manager);
-
 	/* ViewDispatcher */
 	view_dispatcher_free(flick->view_dispatcher);
+
+	/* Path for data folder */
+	furi_string_free(flick->data_path);
+
+	/* Scene Manager */
+	scene_manager_free(flick->scene_manager);
 
 	free(flick);
 }
