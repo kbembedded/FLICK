@@ -12,9 +12,11 @@
 /* TODO: Add some customization options? Power, enabling specific bands rather than all, region name? */
 FuriHalRegion region = {
         .country_code = "LOL",
-        .bands_count = 1,
+        .bands_count = 3,
         .bands = {
-                { 0, 1000000000, 53, 50 },
+                { 300000000, 348000000, 53, 50 },
+                { 387000000, 464000000, 53, 50 },
+                { 779000000, 928000000, 53, 50 },
                 {},
         },
 };
