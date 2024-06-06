@@ -4,6 +4,7 @@
 #include <gui/view_dispatcher.h>
 #include <gui/scene_manager.h>
 #include <gui/modules/dialog_ex.h>
+#include <gui/modules/loading.h>
 #include <gui/modules/popup.h>
 #include <gui/modules/submenu.h>
 #include <gui/modules/text_box.h>
@@ -64,6 +65,12 @@ struct flick_app *flick_alloc(void)
 				 FlickViewTextInput,
 				 text_input_get_view(flick->text_input));
 
+	/* Loading animation */
+	flick->loading = loading_alloc();
+	view_dispatcher_add_view(flick->view_dispatcher,
+				 FlickViewLoading,
+				 loading_get_view(flick->loading));
+
 	/* Path for data folder */
 	storage = furi_record_open(RECORD_STORAGE);
 	flick->data_path = furi_string_alloc_set(APP_DATA_PATH());
@@ -81,6 +88,10 @@ void flick_free(struct flick_app *flick)
 {
 	/* Asset folder path */
 	furi_string_free(flick->data_path);
+
+	/* Loading animation */
+	view_dispatcher_remove_view(flick->view_dispatcher, FlickViewLoading);
+	loading_free(flick->loading);
 
 	/* TextInput */
 	view_dispatcher_remove_view(flick->view_dispatcher, FlickViewTextInput);

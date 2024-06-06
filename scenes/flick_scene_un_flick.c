@@ -20,6 +20,8 @@ void flick_scene_un_flick_on_enter(void *context)
 	File *data_file = NULL;
 	FuriString *data_path = NULL;
 
+	view_dispatcher_switch_to_view(flick->view_dispatcher, FlickViewLoading);
+
 	/* Restore original region_data from sd to internal */
 	storage = furi_record_open(RECORD_STORAGE);
 

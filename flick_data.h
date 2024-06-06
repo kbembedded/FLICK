@@ -4,6 +4,7 @@
 #include <gui/view_dispatcher.h>
 #include <gui/scene_manager.h>
 #include <gui/modules/dialog_ex.h>
+#include <gui/modules/loading.h>
 #include <gui/modules/popup.h>
 #include <gui/modules/submenu.h>
 #include <gui/modules/text_box.h>
@@ -17,6 +18,7 @@ struct flick_app {
 	Submenu *submenu;
 	TextBox *text_box;
 	TextInput *text_input;
+	Loading *loading;
 	FuriString *data_path;
 };
 
@@ -27,6 +29,7 @@ enum {
 	FlickViewPopup,
 	FlickViewTextBox,
 	FlickViewTextInput,
+	FlickViewLoading,
 	FlickViewNum
 };
 

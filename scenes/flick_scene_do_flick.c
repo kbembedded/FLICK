@@ -65,6 +65,8 @@ void flick_scene_do_flick_on_enter(void *context)
 	FuriString *data_path = NULL;
 	size_t size;
 
+	view_dispatcher_switch_to_view(flick->view_dispatcher, FlickViewLoading);
+
 	size = strlen(region.country_code);
 
 	pb_region.country_code = malloc(size+1);
