@@ -8,7 +8,7 @@ static void popup_callback(void *context)
 {
 	UNUSED(context);
 
-	power_reboot(PowerBootModeNormal);
+	power_reboot(furi_record_open(RECORD_POWER), PowerBootModeNormal);
 }
 
 void flick_scene_un_flick_on_enter(void *context)

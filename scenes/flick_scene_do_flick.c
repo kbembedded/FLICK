@@ -25,7 +25,7 @@ static void popup_callback(void *context)
 {
 	UNUSED(context);
 
-	power_reboot(PowerBootModeNormal);
+	power_reboot(furi_record_open(RECORD_POWER), PowerBootModeNormal);
 }
 
 static bool encode_band(pb_ostream_t *stream, const pb_field_t *field, void * const *arg)

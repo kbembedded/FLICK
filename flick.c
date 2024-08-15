@@ -29,7 +29,6 @@ struct flick_app *flick_alloc(void)
 	 * already know this paradigm and its easy to spit out.
 	 */
 	flick->view_dispatcher = view_dispatcher_alloc();
-	view_dispatcher_enable_queue(flick->view_dispatcher);
 	view_dispatcher_set_event_callback_context(flick->view_dispatcher, flick);
 	view_dispatcher_attach_to_gui(flick->view_dispatcher,
 				      (Gui *)furi_record_open(RECORD_GUI),
