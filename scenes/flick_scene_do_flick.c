@@ -97,7 +97,7 @@ void flick_scene_do_flick_on_enter(void *context)
 	 * just to prevent restoring a junk file later.
 	 */
 
-	if (storage_file_exists(storage, INT_PATH(".region_data"))) {
+	if (storage_file_exists(storage, EXT_PATH(".int/.region_data"))) {
 		data_path = furi_string_alloc_set(flick->data_path);
 		furi_string_cat_str(data_path, ".region_data");
 		FURI_LOG_D("FLICK", "Copying region data to \'%s\'", furi_string_get_cstr(data_path));
